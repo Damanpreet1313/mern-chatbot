@@ -7,18 +7,16 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+app.use(cors()); // ✅ works for Vercel + local
 
-app.post("/send", async (req, res) => {
+app.post("/chat", async (req, res) => {   // ✅ changed route
   try {
     const { message } = req.body;
 
     const aiRes = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "llama-3.1-8b-instant", // ✅ Updated working model
+        model: "llama-3.1-8b-instant",
         messages: [{ role: "user", content: message }]
       },
       {
