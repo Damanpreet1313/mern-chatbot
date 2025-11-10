@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfilebackend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - GROQ_API_KEY=${GROQ_API_KEY}
+ 
+    networks:
+      - mern-chatbot-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: dockerfilefrontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - mern-chatbot-network
+
+networks:
+  mern-chatbot-network:
+    driver: bridge
