@@ -10,9 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  #######################################
-  #       DEPLOY FRONTEND TO S3         #
-  #######################################
+ 
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -41,9 +39,7 @@ jobs:
           aws s3 sync frontend/build/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
 
 
-  #######################################
-  #       DEPLOY BACKEND TO EC2         #
-  #######################################
+  
   deploy-backend:
     runs-on: ubuntu-latest
     needs: deploy-frontend
