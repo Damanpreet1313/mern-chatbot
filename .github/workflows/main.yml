@@ -10,7 +10,6 @@ permissions:
   contents: read
 
 jobs:
- 
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -36,10 +35,8 @@ jobs:
 
       - name: Deploy Frontend to S3
         run: |
-          aws s3 sync frontend/build/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
+          aws s3 sync frontend/build s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
 
-
-  
   deploy-backend:
     runs-on: ubuntu-latest
     needs: deploy-frontend
@@ -81,3 +78,4 @@ jobs:
               "docker pull ${{ steps.build-image.outputs.image }}",
               "docker run -d --name mern-chatbot-backend -p 80:5000 --restart always ${{ steps.build-image.outputs.image }}"
             ]'
+
